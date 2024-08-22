@@ -1,23 +1,42 @@
+name: 🤼‍♀️ Test
 on:
   push:
     branches:
       - main
-      - develop
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  eslint:
+  lint:
+    name: ⚡️ESLint
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
-      - name: 🏢 Setup node
-        uses: actions/setup-node@v4
-        with:
-          cache: npm
-          cache-dependency-path: ./package-lock.json
-          node-version-file: ".node-version"
-      - name: 📥 Install deps
-        run: npm install
-      - name: 🔬 Lint
+      - name: setup node
+        uses: ./.github/actions/setup
+      - name: check ESLint
         run: npm run lint
+  test:
+    name: 🧪Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+      - name: setup node
+        uses: ./.github/actions/setup
+      - name: run Test
+        run: npm run test-coverage
+      - name: Check coverage
+        run: |
+          COVERAGE_THRESHOLD=101
+          TOTAL_COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
+          echo "total_coverage=$TOTAL_COVERAGE" >> $GITHUB_OUTPUT
+          echo "Coverage is ${TOTAL_COVERAGE}%"
+          if (( $(echo "$TOTAL_COVERAGE < $COVERAGE_THRESHOLD" | bc -l) )); then
+            echo "Code coverage is below ${COVERAGE_THRESHOLD}%. Failing the check."
+            exit 1
+          fi

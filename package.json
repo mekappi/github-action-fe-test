@@ -6,22 +6,31 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest",
+    "test-coverage": "vitest --coverage"
   },
   "dependencies": {
+    "next": "14.2.6",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.6"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/coverage-v8": "^2.0.5",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.6",
+    "jsdom": "^24.1.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.6"
+    "typescript": "^5",
+    "vitest": "^2.0.5"
   },
   "packageManager": "npm@10.5.0+sha1.726f91df5b1b14d9637c8819d7e71cb873c395a1"
 }
