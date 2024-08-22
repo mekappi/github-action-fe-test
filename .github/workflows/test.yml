@@ -10,23 +10,25 @@ concurrency:
 
 jobs:
   lint:
+    name: ⚡️ESLint
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
       - name: setup node
         uses: ./.github/actions/setup
-      - name: ⚡️ESLint
+      - name: check ESLint
         run: npm run lint
   test:
+    name: 🧪Test
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
       - name: setup node
         uses: ./.github/actions/setup
-      - name: 🧪Test
-        run: npm run coverage
+      - name: run Test
+        run: npm run test-coverage
       - name: Check coverage
         run: |
           COVERAGE_THRESHOLD=90
