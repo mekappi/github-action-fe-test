@@ -9,6 +9,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
       - name: setup node
         uses: ./.github/actions/setup
       - name: ⚡️ESLint
@@ -16,6 +18,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
       - name: setup node
         uses: ./.github/actions/setup
       - name: 🧪Test
