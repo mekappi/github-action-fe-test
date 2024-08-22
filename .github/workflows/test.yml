@@ -1,3 +1,4 @@
+name: 🤼‍♀️ Test
 on:
   push:
     branches:
@@ -31,9 +32,10 @@ jobs:
         run: npm run test-coverage
       - name: Check coverage
         run: |
-          COVERAGE_THRESHOLD=90
+          COVERAGE_THRESHOLD=101
           TOTAL_COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
           echo "total_coverage=$TOTAL_COVERAGE" >> $GITHUB_OUTPUT
+          echo "Coverage is ${TOTAL_COVERAGE}%"
           if (( $(echo "$TOTAL_COVERAGE < $COVERAGE_THRESHOLD" | bc -l) )); then
             echo "Code coverage is below ${COVERAGE_THRESHOLD}%. Failing the check."
             exit 1
