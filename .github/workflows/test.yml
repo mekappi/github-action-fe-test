@@ -6,29 +6,18 @@ on:
   pull_request:
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇️ Checkout repo
-        uses: actions/checkout@v4
-      - name: 🏢 Setup node
-        uses: actions/setup-node@v4
-        with:
-          cache: npm
-          cache-dependency-path: ./package-lock.json
-          node-version-file: ".node-version"
-      - name: 📥 Install deps
-        run: npm install
   lint:
     runs-on: ubuntu-latest
-    needs: setup
     steps:
+      - name: setup node
+        uses: ./.github/actions/setup
       - name: ⚡️ESLint
         run: npm run lint
   test:
     runs-on: ubuntu-latest
-    needs: setup
     steps:
+      - name: setup node
+        uses: ./.github/actions/setup
       - name: 🧪Test
         run: npm run coverage
       - name: Check coverage
