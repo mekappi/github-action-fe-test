@@ -2,7 +2,7 @@ name: Setup
 description: Setup Node
 
 runs:
-  uses: composite
+  using: composite
   steps:
     - name: 🏢 Setup node
       uses: actions/setup-node@v4
